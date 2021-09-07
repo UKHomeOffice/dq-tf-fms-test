@@ -91,7 +91,7 @@ resource "aws_db_instance" "postgres" {
   allocated_storage               = 50
   storage_type                    = "gp2"
   engine                          = "postgres"
-  engine_version                  = var.environment == "prod" ? "10.15" : "10.15"
+  engine_version                  = var.environment == "prod" ? "10.17" : "10.17"
   instance_class                  = "db.m5.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   name                            = var.database_name

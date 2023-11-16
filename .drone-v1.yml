@@ -1,5 +1,6 @@
 ---
 global-variables:
+  acp-docker-image: &acp-docker-image 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind:latest
   vault-image: &vault-image docker.digital.homeoffice.gov.uk/dq/dq-vault-awscli:1.43
 
 kind: pipeline
@@ -29,11 +30,11 @@ steps:
   pull: always
   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind:latest
   commands:
-  - /usr/local/bin/wait
-  - docker run --rm -v $(pwd):/data -w /data hashicorp/terraform fmt --diff --check && echo $?
+    - /usr/local/bin/wait
+    - docker run --rm -v $(pwd):/data -w /data hashicorp/terraform fmt --diff --check && echo $?
   when:
     event:
-    - push
+      - push
 
 - name: retrieve_aws_secrets_test
   pull: if-not-exists
@@ -53,12 +54,12 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/tf-testrunner:32
   commands:
-  - source ./set_aws_secrets.sh
-  - python -m unittest tests/*_test.py
+    - source ./set_aws_secrets.sh
+    - python -m unittest tests/*_test.py
   when:
     event:
-    - push
+      - push
 
 services:
   - name: docker
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind:latest
+    image: *acp-docker-image

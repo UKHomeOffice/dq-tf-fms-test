@@ -88,10 +88,10 @@ resource "aws_security_group_rule" "allow_db_out" {
 
 resource "aws_db_instance" "postgres" {
   identifier                      = "fms-postgres-${local.naming_suffix}"
-  allocated_storage               = 50
+  allocated_storage               = var.environment == "prod" ? "60" : "70"
   storage_type                    = "gp2"
   engine                          = "postgres"
-  engine_version                  = var.environment == "prod" ? "10.17" : "10.17"
+  engine_version                  = var.environment == "prod" ? "14.7" : "14.7"
   instance_class                  = "db.m5.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   name                            = var.database_name
@@ -117,6 +117,9 @@ resource "aws_db_instance" "postgres" {
 
   lifecycle {
     prevent_destroy = true
+    ignore_changes = [
+      engine_version,
+    ]
   }
 
   tags = {

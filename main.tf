@@ -18,3 +18,4 @@ resource "aws_route_table_association" "fms_rt_rds_az1" {
   route_table_id = var.route_table_id
 }
 
+

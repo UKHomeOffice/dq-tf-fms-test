@@ -12,10 +12,4 @@ terraform {
       source = "hashicorp/random"
     }
   }
-    formatting {
-    ignore = [
-      "comments"  # Ignore changes to comments
-    ]
-  }
-}
 }

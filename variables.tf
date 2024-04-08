@@ -64,11 +64,11 @@ variable "dq_lambda_subnet_cidr_az2" {
   description = "Dedicated subnet for Lambda ENIs"
 }
 
-variable "rds_enhanced_monitoring_role" {
+/* variable "rds_enhanced_monitoring_role" {
   description = "ARN of the IAM role for RDS enhanced monitoring"
   type        = string
   default     = ""
-}
+} */
 
 
 variable "environment" {

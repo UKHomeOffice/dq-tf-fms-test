@@ -94,7 +94,6 @@ resource "aws_db_instance" "postgres" {
   engine_version                  = var.environment == "prod" ? "14.7" : "14.7"
   instance_class                  = "db.m5.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
-  #name                            = var.database_name
   port                            = var.port
   username                        = random_string.username.result
   password                        = random_string.password.result

@@ -67,7 +67,7 @@ variable "dq_lambda_subnet_cidr_az2" {
 variable "rds_enhanced_monitoring_role" {
   description = "ARN of the IAM role for RDS enhanced monitoring"
   type        = string
-  default     = "arn:aws:iam::123456789:role/rds-enhanced-monitoring-role"
+  default     = ""
 }
 
 

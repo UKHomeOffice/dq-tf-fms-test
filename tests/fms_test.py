@@ -10,14 +10,13 @@ class TestE2E(unittest.TestCase):
             provider "aws" {
               region = "eu-west-2"
               skip_credentials_validation = true
-              skip_get_ec2_platforms = true
             }
 
             module "fms" {
               source = "./mymodule"
 
               providers = {
-                aws = "aws"
+                aws = aws
               }
 
               appsvpc_id                       = "1234"
@@ -29,7 +28,7 @@ class TestE2E(unittest.TestCase):
               az2                              = "eu-west-2b"
               naming_suffix                    = "apps-preprod-dq"
               environment                      = "prod"
-              rds_enhanced_monitoring_role     = "arn:aws:iam::123456789:role/rds-enhanced-monitoring-role"
+            
 
             }
         """

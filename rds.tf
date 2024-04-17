@@ -35,7 +35,7 @@ resource "random_string" "password" {
 resource "random_string" "username" {
   length  = 8
   special = false
-  number  = false
+  numeric = false
 }
 
 resource "aws_security_group" "fms_db" {
@@ -94,7 +94,6 @@ resource "aws_db_instance" "postgres" {
   engine_version                  = var.environment == "prod" ? "14.7" : "14.7"
   instance_class                  = "db.m5.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
-  name                            = var.database_name
   port                            = var.port
   username                        = random_string.username.result
   password                        = random_string.password.result
@@ -108,7 +107,6 @@ resource "aws_db_instance" "postgres" {
   ca_cert_identifier              = var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"
   apply_immediately               = var.environment == "prod" ? "false" : "true"
   monitoring_interval             = "60"
-  monitoring_role_arn             = var.rds_enhanced_monitoring_role
   db_subnet_group_name            = aws_db_subnet_group.rds.id
   vpc_security_group_ids          = [aws_security_group.fms_db.id]
 
@@ -156,7 +154,7 @@ resource "aws_ssm_parameter" "rds_fms_password" {
 resource "random_string" "service_username" {
   length  = 8
   special = false
-  number  = false
+  numeric = false
 }
 
 resource "random_string" "service_password" {
